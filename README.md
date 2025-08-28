@@ -69,6 +69,7 @@ Event Bubbling: Event bubbling is a fundamental concept in the DOM event model w
   });
 </script>
 
+
 4.What is Event Delegation in JavaScript? Why is it useful?
 Ans to The Question no.4:
 
