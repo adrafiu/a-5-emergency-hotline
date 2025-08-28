@@ -75,3 +75,37 @@ for (let i = 0; i < callButtons.length; i++) {
     });
   });
 }
+
+ //* Navbar copy count element
+
+  const copyCountElement = document.getElementById("copy-count");
+  let copyCount = 0;
+
+  // সব Copy button select
+  const copyButtons = document.querySelectorAll(".copy-btn");
+
+  for (let i = 0; i < copyButtons.length; i++) {
+    copyButtons[i].addEventListener("click", function () {
+      // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
+      const parentCard = copyButtons[i].closest(".card");
+
+      // সেই কার্ডের সার্ভিস নাম্বার বের করি
+      const serviceNumber = parentCard.querySelector(".service-number").textContent;
+
+      // ১. Alert দেখাও
+      alert("Number copied successfully! (" + serviceNumber + ")");
+
+      // ২. Copy count বাড়াও (২ করে)
+      copyCount += 2;
+      copyCountElement.textContent = copyCount;
+
+      // ৩. Clipboard এ copy করো
+      navigator.clipboard.writeText(serviceNumber)
+        .then(() => {
+          console.log("Copied: " + serviceNumber);
+        })
+        .catch(err => {
+          console.error("Failed to copy: ", err);
+        });
+    });
+  }
