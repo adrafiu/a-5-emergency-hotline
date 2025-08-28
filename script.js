@@ -38,9 +38,19 @@ for (let i = 0; i < callButtons.length; i++) {
     const parentCard = callButtons[i].closest(".card");
 
     // সেই কার্ডের সার্ভিস নাম + নাম্বার বের করি
-    const serviceName = parentCard.querySelector("h1").textContent;
-    const serviceNumber =
-      parentCard.querySelector(".service-number").textContent;
+    let serviceName = parentCard
+      .querySelector("h1")
+      .innerHTML.replace(/<br\s*\/?>/gi, " ") // <br> remove
+      .replace(/&amp;/gi, "&") // & entity fix
+      .replace(/\s+/g, " ") // extra spaces
+      .trim();
+
+    const serviceNumber = parentCard
+      .querySelector(".service-number")
+      .textContent.replace(/<br\s*\/?>/gi, " ") // <br> remove
+      .replace(/&amp;/gi, "&") // & entity fix
+      .replace(/\s+/g, " ") // extra spaces
+      .trim();
 
     // যদি coin থাকে
     if (coins >= 20) {
@@ -59,13 +69,14 @@ for (let i = 0; i < callButtons.length; i++) {
             <h1 class="font-bold">${serviceName}</h1>
             <p class="text-gray-500">${serviceNumber}</p>
           </div>
-          <p class="text-gray-500 flex items-center">${getCurrentTime()}</p>
+          <p class="text-black flex justify-between items-center whitespace-nowrap">${getCurrentTime()}</p>
         `;
       historyContainer.prepend(newHistory);
     } else {
       // Coin নাই
       alert("You don't have enough coins, so the call cannot be made!");
     }
+
     // Clear button select
     const clearBtn = document.querySelector("aside button");
 
@@ -76,36 +87,38 @@ for (let i = 0; i < callButtons.length; i++) {
   });
 }
 
- //* Navbar copy count element
+//* Navbar copy count element
 
-  const copyCountElement = document.getElementById("copy-count");
-  let copyCount = 0;
+const copyCountElement = document.getElementById("copy-count");
+let copyCount = 0;
 
-  // সব Copy button select
-  const copyButtons = document.querySelectorAll(".copy-btn");
+// সব Copy button select
+const copyButtons = document.querySelectorAll(".copy-btn");
 
-  for (let i = 0; i < copyButtons.length; i++) {
-    copyButtons[i].addEventListener("click", function () {
-      // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
-      const parentCard = copyButtons[i].closest(".card");
+for (let i = 0; i < copyButtons.length; i++) {
+  copyButtons[i].addEventListener("click", function () {
+    // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
+    const parentCard = copyButtons[i].closest(".card");
 
-      // সেই কার্ডের সার্ভিস নাম্বার বের করি
-      const serviceNumber = parentCard.querySelector(".service-number").textContent;
+    // সেই কার্ডের সার্ভিস নাম্বার বের করি
+    const serviceNumber =
+      parentCard.querySelector(".service-number").textContent;
 
-      // ১. Alert দেখাও
-      alert("Number copied successfully! (" + serviceNumber + ")");
+    // ১. Alert দেখাও
+    alert("Number copied successfully! (" + serviceNumber + ")");
 
-      // ২. Copy count বাড়াও (২ করে)
-      copyCount += 2;
-      copyCountElement.textContent = copyCount;
+    // ২. Copy count বাড়াও (২ করে)
+    copyCount += 2;
+    copyCountElement.textContent = copyCount;
 
-      // ৩. Clipboard এ copy করো
-      navigator.clipboard.writeText(serviceNumber)
-        .then(() => {
-          console.log("Copied: " + serviceNumber);
-        })
-        .catch(err => {
-          console.error("Failed to copy: ", err);
-        });
-    });
-  }
+    // ৩. Clipboard এ copy করো
+    navigator.clipboard
+      .writeText(serviceNumber)
+      .then(() => {
+        console.log("Copied: " + serviceNumber);
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  });
+}
