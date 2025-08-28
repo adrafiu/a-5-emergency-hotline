@@ -34,11 +34,9 @@ function getCurrentTime() {
 // প্রতিটি Call button এর জন্য
 for (let i = 0; i < callButtons.length; i++) {
   callButtons[i].addEventListener("click", function () {
-    // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
-    const parentCard = callButtons[i].closest(".card");
+    const parentCard = callButtons[i].closest(".card"); // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
 
-    // সেই কার্ডের সার্ভিস নাম + নাম্বার বের করি
-    let serviceName = parentCard
+    let serviceName = parentCard // সেই কার্ডের সার্ভিস নাম + নাম্বার বের করি
       .querySelector("h1")
       .innerHTML.replace(/<br\s*\/?>/gi, " ") // <br> remove
       .replace(/&amp;/gi, "&") // & entity fix
@@ -56,8 +54,7 @@ for (let i = 0; i < callButtons.length; i++) {
     if (coins >= 20) {
       alert(`Calling ${serviceName} ${serviceNumber}...`);
 
-      // ২০ coin কমাও
-      coins -= 20;
+      coins -= 20; // ২০ coin কমাও
       coinElement.textContent = coins;
 
       // নতুন history যোগ করো
@@ -73,8 +70,7 @@ for (let i = 0; i < callButtons.length; i++) {
         `;
       historyContainer.prepend(newHistory);
     } else {
-      // Coin নাই
-      alert("You don't have enough coins, so the call cannot be made!");
+      alert("You don't have enough coins, so the call cannot be made!"); // alert: Coin নাই
     }
 
     // Clear button select
@@ -97,8 +93,7 @@ const copyButtons = document.querySelectorAll(".copy-btn");
 
 for (let i = 0; i < copyButtons.length; i++) {
   copyButtons[i].addEventListener("click", function () {
-    // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
-    const parentCard = copyButtons[i].closest(".card");
+    const parentCard = copyButtons[i].closest(".card"); // কোন কার্ড থেকে ক্লিক হলো সেটা বের করি
 
     // সেই কার্ডের সার্ভিস নাম্বার বের করি
     const serviceNumber =
